@@ -75,8 +75,6 @@ Parameters:
 function getWinnersByYear(callback1, callback2) {
     let arr = callback1;
     let arr2 = callback2;
-    console.log(arr);
-    console.log(arr2);
     return arr.forEach((item, index) => console.log(`In ${arr2[index]}, ${item} won the world cup!`));
 };
 getWinnersByYear(getWinners(getFinals(fifaData)), getYears(getFinals(fifaData)));
@@ -107,13 +105,12 @@ console.log(getAverageGoals(fifaData));
 Hint: Investigate your data to find "team initials"!
 Hint: use `.reduce` */
 
-function getCountryWins(/* code here */) {
-
-    /* code here */
-
+function getCountryWins(data, teamInitials) {    
+    let teamData = data.filter(item => ((item['Home Team Initials'] === teamInitials) || (item['Away Team Initials'] === teamInitials)) && item['Stage'] === 'Final');    //Filter team appearances if teamInitials found in home or away intials and it was a finals match.
+    let winners = teamData.map(item => Math.sign(item['Home Team Goals'] - item['Away Team Goals']) === 1 ? item['Home Team Initials'] : item['Away Team Initials']); //Determine the winners of the match where the teamInitials appeared.
+    return winners.filter(item => item === teamInitials).length; //Reduce wins to only the teamInitials entered and use .length to get a count.
 };
-
-getCountryWins();
+console.log(getCountryWins(fifaData, 'ITA'));
 
 
 /* Stretch 3: Write a function called getGoals() that accepts a parameter `data` and returns the team with the most goals score per appearance (average goals for) in the World Cup finals */
