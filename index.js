@@ -108,7 +108,7 @@ Hint: use `.reduce` */
 function getCountryWins(data, teamInitials) {    
     let teamData = data.filter(item => ((item['Home Team Initials'] === teamInitials) || (item['Away Team Initials'] === teamInitials)) && item['Stage'] === 'Final');    //Filter team appearances if teamInitials found in home or away intials and it was a finals match.
     let winners = teamData.map(item => Math.sign(item['Home Team Goals'] - item['Away Team Goals']) === 1 ? item['Home Team Initials'] : item['Away Team Initials']); //Determine the winners of the match where the teamInitials appeared.
-    return winners.filter(item => item === teamInitials).length; //Reduce wins to only the teamInitials entered and use .length to get a count.
+    return `${teamInitials} win count: ${winners.filter(item => item === teamInitials).length}`; //Reduce wins to only the teamInitials entered and use .length to get a count.
 };
 console.log(getCountryWins(fifaData, 'ITA'));
 
